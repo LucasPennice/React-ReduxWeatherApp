@@ -1,0 +1,356 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 48px;
+  font-family: 'Roboto Condensed', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.appBody {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loadingIcon {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border-style: solid solid none none;
+  border-width: 5px;
+  background-color: transparent;
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+  z-index: 0;
+  margin: 0 auto;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  to {
+    -webkit-transform: rotateZ(360deg);
+            transform: rotateZ(360deg);
+  }
+}
+
+.searchBarInitial {
+  text-align: center;
+  color: #bdbdbd;
+  border: none;
+  width: 80%;
+  border-radius: 5px;
+  position: absolute;
+  top: 7rem;
+  left: 10%;
+  right: 10%;
+  caret-color: transparent;
+  z-index: 1;
+  font-size: clamp(0.5rem, 5vh, 3rem);
+}
+
+.searchBarInitial:focus, .searchBarInitial:active {
+  outline: none;
+}
+
+.searchBarActive {
+  border: none;
+  -webkit-transition: 0.7s ease-in-out;
+  transition: 0.7s ease-in-out;
+  width: 80%;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  text-align: center;
+  font-weight: 400;
+  letter-spacing: 2px;
+  -webkit-box-shadow: 0 2px 5px #3b3b3b;
+          box-shadow: 0 2px 5px #3b3b3b;
+  caret-color: transparent;
+  z-index: 1;
+  font-size: clamp(0.5rem, 5vh, 3rem);
+  opacity: 0.5;
+}
+
+.searchBarActive:focus, .searchBarActive:active {
+  outline: none;
+  opacity: 1;
+}
+
+.weatherInfo .weatherInfoContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 85vw;
+  max-width: 350px;
+  height: clamp(100px, 25vh, 200px);
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.719);
+  cursor: default;
+  border-radius: 30px;
+  -webkit-animation: appear 0.5s;
+          animation: appear 0.5s;
+}
+
+.weatherInfo .weatherInfoContainer .temperature {
+  opacity: 0;
+  font-size: clamp(40px, 5vw, 1.5rem);
+  cursor: pointer;
+}
+
+.weatherInfo .weatherInfoContainer .tIcon {
+  width: clamp(35px, 5vw, 1.5rem);
+}
+
+.weatherInfo .weatherInfoContainer .location {
+  opacity: 0;
+  font-size: clamp(15px, 5vw, 0.4rem);
+  -webkit-animation: appear 0.5s 0.7s forwards;
+          animation: appear 0.5s 0.7s forwards;
+}
+
+.weatherInfo .weatherInfoContainer .weatherState {
+  opacity: 0;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1.5px;
+  font-size: clamp(15px, 5vw, 0.5rem);
+  -webkit-animation: appear 0.5s 0.5s forwards;
+          animation: appear 0.5s 0.5s forwards;
+}
+
+.appearClass {
+  -webkit-animation: appear 1s forwards;
+          animation: appear 1s forwards;
+}
+
+@-webkit-keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dunno {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-animation: appear 0.3s forwards;
+          animation: appear 0.3s forwards;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.TTComponentContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.btn {
+  border: none;
+  padding: 0.2rem;
+  margin: 0.1rem;
+  font-size: clamp(15px, 5vw, 50px);
+  border-radius: 20px;
+  margin-top: 1rem;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  -webkit-box-shadow: 0 2px 5px gray;
+          box-shadow: 0 2px 5px gray;
+}
+
+.currentDate {
+  background-color: rgba(255, 255, 255, 0.719);
+  margin-top: 0.2rem;
+  font-size: clamp(15px, 3vw, 30px);
+  padding: 0.2rem;
+  border-radius: 20px;
+}
+
+.forecastDiv {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.719);
+  border-radius: 30px;
+  width: 80vw;
+  max-width: 800px;
+  height: clamp(200px, 30vh, 400px);
+  max-height: 350px;
+}
+
+.forecastDiv .forecastTable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left;
+  -webkit-animation: appearTable 1s ease-in-out forwards;
+          animation: appearTable 1s ease-in-out forwards;
+  border: 2px solid black;
+  border-style: none none solid solid;
+}
+
+.forecastDiv .forecastTable .hourDivs {
+  height: 100%;
+  width: 4.16%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
+}
+
+.forecastDiv .forecastTable .hourDivs .currentBubbleTime {
+  position: absolute;
+  font-size: 0.3rem;
+  bottom: 0;
+  opacity: 0;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.forecastDiv .forecastTable .hourDivs .hourBubble {
+  background-color: #ad74b4;
+  -webkit-box-shadow: 0 2px 5px gray;
+          box-shadow: 0 2px 5px gray;
+  cursor: default;
+  width: clamp(5px, 1.5vw, 15px);
+  height: clamp(5px, 1.5vw, 15px);
+  border-radius: 50%;
+  opacity: 0;
+  -webkit-animation: appear 1s forwards;
+          animation: appear 1s forwards;
+}
+
+.forecastDiv .forecastTable .hourDivs .hourBubble:hover .hourBubbleText {
+  opacity: 1;
+  -webkit-transform: translateY(-40px);
+          transform: translateY(-40px);
+}
+
+.forecastDiv .forecastTable .hourDivs .hourBubble:hover + .currentBubbleTime {
+  opacity: 1;
+}
+
+.forecastDiv .forecastTable .hourDivs .hourBubble:hover {
+  background-color: #7e4186;
+}
+
+.forecastDiv .forecastTable .hourDivs .hourBubble .hourBubbleText {
+  opacity: 0;
+  font-size: 0.5rem;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+@-webkit-keyframes appearTable {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes appearTable {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+/*# sourceMappingURL=styles.css.map */
