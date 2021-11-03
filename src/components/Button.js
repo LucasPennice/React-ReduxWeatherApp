@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-export default (props) => {
+export default ({ changeDay, task, text }) => {
 	return (
-		<button className="btn" onClick={() => props.changeDay(props.task)}>
-			{props.text}
+		<button className="tableButtons" onClick={() => changeDay(task)}>
+			{text}
 		</button>
 	);
 };

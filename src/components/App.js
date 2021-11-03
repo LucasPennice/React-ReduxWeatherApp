@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
 import styles from './styles.css';
 import SearchBar from './SearchBar';
 import LoadingIcon from './LoadingIcon';
-import { render } from '@testing-library/react';
 import TemperatureTable from './TemperatureTable';
-import axios from 'axios';
 import WeatherInfo from './WeatherInfo';
+//API CONFIG
+import WeatherData from '../apis/WeatherData';
+import WeatherForecast from '../apis/WeatherForecast';
+//
+import React, { useState, useEffect } from 'react';
 
 export default () => {
-	const baseURL = 'http://api.weatherapi.com/v1/current.json?';
-	const forecastURL = 'http://api.weatherapi.com/v1/forecast.json?';
+	const grayColor = 'rgb(216, 216, 216)';
+	const nightColor = 'rgb(13, 13, 43)';
+	const dayColor = 'rgb(143, 208, 229)';
 	const [isSearchBarUp, setIsSearchBarUp] = useState(false);
 	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 	const [searchTerm, setSearchTerm] = useState('');
@@ -17,45 +20,47 @@ export default () => {
 	const [bgColor, setBgColor] = useState('rgb(216, 216, 216)');
 	const [isCelsius, setIsCelsius] = useState(true);
 	const [forecastData, setForecastData] = useState({});
+	let appStyle = { backgroundColor: bgColor, transition: `0.2s` };
 
-	const getWeatherInfo = async (term) => {
+	const updateWeatherInfo = async (cityName) => {
+		const {
+			data: { current, location },
+		} = await WeatherData.get('', {
+			params: {
+				q: cityName,
+			},
+		});
+		const forecast = await WeatherForecast.get('', {
+			params: {
+				q: cityName,
+			},
+		});
+
+		const { condition, temp_c, temp_f } = current;
+		const { region, country } = location;
+
+		setWeatherData({
+			weather: condition.text,
+			weatherIcon: condition.icon,
+			c: temp_c,
+			f: temp_f,
+			location: `${region}, ${country}`,
+		});
+
+		setForecastData(forecast.data.forecast);
+		setSearchTerm(forecast.data.location.name);
+	};
+
+	const updateWeatherState = async (cityName) => {
 		try {
-			//Gets current weather data
 			setForecastData({});
 			setWeatherData({});
-
-			setBgColor('rgb(216, 216, 216)');
-			if (term) {
+			setBgColor(grayColor);
+			if (cityName) {
 				setIsFormSubmitted(true);
-				const { data } = await axios.get(baseURL, {
-					params: {
-						q: term,
-						aqi: 'no',
-						key: '8d67f15d3dd84d3ca63184553212810',
-					},
-				});
-
-				const forecast = await axios.get(forecastURL, {
-					params: {
-						q: term,
-						days: 3,
-						alerts: 'no',
-						aqi: 'no',
-						key: '8d67f15d3dd84d3ca63184553212810',
-					},
-				});
-				setWeatherData({
-					weather: data.current.condition.text,
-					weatherIcon: data.current.condition.icon,
-					c: data.current.temp_c,
-					f: data.current.temp_f,
-					location: `${data.location.region}, ${data.location.country}`,
-				});
-
-				setForecastData(forecast.data.forecast);
-				setSearchTerm(forecast.data.location.name);
+				updateWeatherInfo(cityName);
 			} else {
-				alert('Write something');
+				alert('Please write something');
 			}
 		} catch (error) {
 			alert(`${error} Please check if your spelling is correct`);
@@ -63,14 +68,12 @@ export default () => {
 	};
 
 	useEffect(() => {
-		console.log(forecastData);
 		if (weatherData.weatherIcon !== undefined) {
 			weatherData.weatherIcon.includes('night')
-				? setBgColor('rgb(13, 13, 43)')
-				: setBgColor('rgb(143, 208, 229)');
+				? setBgColor(nightColor)
+				: setBgColor(dayColor);
 		}
 	}, [weatherData]);
-	let appStyle = { backgroundColor: bgColor, transition: `0.2s` };
 
 	return (
 		<div className="appBody" style={appStyle}>
@@ -79,7 +82,7 @@ export default () => {
 				setIsSearchBarUp={setIsSearchBarUp}
 				searchTerm={searchTerm}
 				setSearchTerm={setSearchTerm}
-				getWeatherInfo={getWeatherInfo}
+				updateWeatherState={updateWeatherState}
 				setIsFormSubmitted={setIsFormSubmitted}
 			/>
 			{Object.keys(weatherData).length === 0 ? (

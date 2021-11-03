@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-export default (props) => {
-	const { c, f, location, weatherIcon, weather } = props.weatherData;
+export default ({ weatherData, isCelsius, setIsCelsius }) => {
+	const { c, f, location, weatherIcon, weather } = weatherData;
 	const [temperatureClass, setTemperatureClass] = useState(
 		'temperature appearClass'
 	);
@@ -14,17 +14,17 @@ export default (props) => {
 		return () => {
 			setTemperatureClass('temperature');
 		};
-	}, [props.isCelsius]);
+	}, [isCelsius]);
 
 	return (
-		<div className="weatherInfo">
+		<div className="WIcomponentContainer">
 			<div className="weatherInfoContainer">
 				<div
 					className={temperatureClass}
-					onClick={() => props.setIsCelsius(!props.isCelsius)}
+					onClick={() => setIsCelsius(!isCelsius)}
 				>
-					{props.isCelsius === true ? `${c}°` : `${f}°F`}
-					<img src={weatherIcon} className="tIcon" />
+					{isCelsius === true ? `${c}°` : `${f}°F`}
+					<img src={weatherIcon} className="weatherIcon" />
 				</div>
 				<div className="weatherState">{weather}</div>
 				<div className="location">{location}</div>

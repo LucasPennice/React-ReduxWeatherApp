@@ -117,7 +117,7 @@
   opacity: 1;
 }
 
-.weatherInfo .weatherInfoContainer {
+.WIcomponentContainer .weatherInfoContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -142,24 +142,24 @@
           animation: appear 0.5s;
 }
 
-.weatherInfo .weatherInfoContainer .temperature {
+.WIcomponentContainer .weatherInfoContainer .temperature {
   opacity: 0;
   font-size: clamp(40px, 5vw, 1.5rem);
   cursor: pointer;
 }
 
-.weatherInfo .weatherInfoContainer .tIcon {
+.WIcomponentContainer .weatherInfoContainer .weatherIcon {
   width: clamp(35px, 5vw, 1.5rem);
 }
 
-.weatherInfo .weatherInfoContainer .location {
+.WIcomponentContainer .weatherInfoContainer .location {
   opacity: 0;
   font-size: clamp(15px, 5vw, 0.4rem);
   -webkit-animation: appear 0.5s 0.7s forwards;
           animation: appear 0.5s 0.7s forwards;
 }
 
-.weatherInfo .weatherInfoContainer .weatherState {
+.WIcomponentContainer .weatherInfoContainer .weatherState {
   opacity: 0;
   margin-bottom: 0.2rem;
   letter-spacing: 1.5px;
@@ -191,7 +191,24 @@
   }
 }
 
-.dunno {
+.tableButtons {
+  border: none;
+  padding: 0.2rem;
+  margin: 0.1rem;
+  font-size: clamp(15px, 5vw, 50px);
+  border-radius: 20px;
+  margin-top: 1rem;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.tableButtons:hover {
+  -webkit-box-shadow: 0 2px 5px gray;
+          box-shadow: 0 2px 5px gray;
+}
+
+.TTComponentContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -206,7 +223,7 @@
           align-items: center;
 }
 
-.TTComponentContainer {
+.TTComponentContainer .TableAndButtonsContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -218,32 +235,7 @@
           align-items: center;
 }
 
-.btn {
-  border: none;
-  padding: 0.2rem;
-  margin: 0.1rem;
-  font-size: clamp(15px, 5vw, 50px);
-  border-radius: 20px;
-  margin-top: 1rem;
-  cursor: pointer;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-}
-
-.btn:hover {
-  -webkit-box-shadow: 0 2px 5px gray;
-          box-shadow: 0 2px 5px gray;
-}
-
-.currentDate {
-  background-color: rgba(255, 255, 255, 0.719);
-  margin-top: 0.2rem;
-  font-size: clamp(15px, 3vw, 30px);
-  padding: 0.2rem;
-  border-radius: 20px;
-}
-
-.forecastDiv {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer {
   margin-top: 1rem;
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.719);
@@ -254,7 +246,7 @@
   max-height: 350px;
 }
 
-.forecastDiv .forecastTable {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -274,7 +266,7 @@
   border-style: none none solid solid;
 }
 
-.forecastDiv .forecastTable .hourDivs {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs {
   height: 100%;
   width: 4.16%;
   display: -webkit-box;
@@ -289,7 +281,7 @@
   position: relative;
 }
 
-.forecastDiv .forecastTable .hourDivs .currentBubbleTime {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs .currentBubbleTime {
   position: absolute;
   font-size: 0.3rem;
   bottom: 0;
@@ -298,7 +290,7 @@
   transition: 0.2s;
 }
 
-.forecastDiv .forecastTable .hourDivs .hourBubble {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs .hourBubble {
   background-color: #ad74b4;
   -webkit-box-shadow: 0 2px 5px gray;
           box-shadow: 0 2px 5px gray;
@@ -311,25 +303,33 @@
           animation: appear 1s forwards;
 }
 
-.forecastDiv .forecastTable .hourDivs .hourBubble:hover .hourBubbleText {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs .hourBubble:hover .hourBubbleText {
   opacity: 1;
   -webkit-transform: translateY(-40px);
           transform: translateY(-40px);
 }
 
-.forecastDiv .forecastTable .hourDivs .hourBubble:hover + .currentBubbleTime {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs .hourBubble:hover + .currentBubbleTime {
   opacity: 1;
 }
 
-.forecastDiv .forecastTable .hourDivs .hourBubble:hover {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs .hourBubble:hover {
   background-color: #7e4186;
 }
 
-.forecastDiv .forecastTable .hourDivs .hourBubble .hourBubbleText {
+.TTComponentContainer .TableAndButtonsContainer .TableContainer .ForecastTable .hourDivs .hourBubble .hourBubbleText {
   opacity: 0;
   font-size: 0.5rem;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+}
+
+.TTComponentContainer .currentDate {
+  background-color: rgba(255, 255, 255, 0.719);
+  margin-top: 0.2rem;
+  font-size: clamp(15px, 3vw, 30px);
+  padding: 0.2rem;
+  border-radius: 20px;
 }
 
 @-webkit-keyframes appearTable {

@@ -17,7 +17,6 @@
 .appBody {
 	width: 100vw;
 	height: 100vh;
-	// background-color: rgb(216, 216, 216);
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -108,7 +107,7 @@
 //WEATHER INFO STYLES
 //WEATHER INFO STYLES
 
-.weatherInfo {
+.WIcomponentContainer {
 	.weatherInfoContainer {
 		display: flex;
 		flex-direction: column;
@@ -129,7 +128,7 @@
 			cursor: pointer;
 		}
 
-		.tIcon {
+		.weatherIcon {
 			width: clamp(35px, 5vw, 1.5rem);
 		}
 
@@ -169,20 +168,7 @@
 //FORECAST TABLE
 //FORECAST TABLE
 
-.dunno {
-	display: flex;
-	animation: appear 0.3s forwards;
-	flex-direction: column;
-	align-items: center;
-}
-
-.TTComponentContainer {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.btn {
+.tableButtons {
 	border: none;
 	padding: 0.2rem;
 	margin: 0.1rem;
@@ -197,81 +183,92 @@
 	}
 }
 
-.currentDate {
-	background-color: rgba(255, 255, 255, 0.719);
-	margin-top: 0.2rem;
-	font-size: clamp(15px, 3vw, 30px);
-	padding: 0.2rem;
-	border-radius: 20px;
-}
+.TTComponentContainer {
+	display: flex;
+	animation: appear 0.3s forwards;
+	flex-direction: column;
+	align-items: center;
 
-.forecastDiv {
-	margin-top: 1rem;
-	padding: 1rem;
-	background-color: rgba(255, 255, 255, 0.719);
-	border-radius: 30px;
-	width: 80vw;
-	max-width: 800px;
-	// height: 50vh;
-	height: clamp(200px, 30vh, 400px);
-
-	max-height: 350px;
-
-	.forecastTable {
+	.TableAndButtonsContainer {
 		display: flex;
 		justify-content: center;
-		align-items: flex-end;
-		width: 100%;
-		height: 100%;
-		transform-origin: bottom left;
-		animation: appearTable 1s ease-in-out forwards;
-		border: 2px solid black;
-		border-style: none none solid solid;
+		align-items: center;
 
-		.hourDivs {
-			height: 100%;
-			width: 4.16%;
-			display: flex;
-			justify-content: center;
-			align-items: flex-start;
-			position: relative;
+		.TableContainer {
+			margin-top: 1rem;
+			padding: 1rem;
+			background-color: rgba(255, 255, 255, 0.719);
+			border-radius: 30px;
+			width: 80vw;
+			max-width: 800px;
+			height: clamp(200px, 30vh, 400px);
+			max-height: 350px;
 
-			.currentBubbleTime {
-				position: absolute;
-				font-size: 0.3rem;
-				bottom: 0;
-				opacity: 0;
-				transition: 0.2s;
-			}
+			.ForecastTable {
+				display: flex;
+				justify-content: center;
+				align-items: flex-end;
+				width: 100%;
+				height: 100%;
+				transform-origin: bottom left;
+				animation: appearTable 1s ease-in-out forwards;
+				border: 2px solid black;
+				border-style: none none solid solid;
 
-			.hourBubble {
-				background-color: rgb(173, 116, 180);
-				box-shadow: 0 2px 5px gray;
-				cursor: default;
-				width: clamp(5px, 1.5vw, 15px);
-				height: clamp(5px, 1.5vw, 15px);
-				border-radius: 50%;
-				opacity: 0;
-				animation: appear 1s forwards;
+				.hourDivs {
+					height: 100%;
+					width: 4.16%;
+					display: flex;
+					justify-content: center;
+					align-items: flex-start;
+					position: relative;
 
-				&:hover .hourBubbleText {
-					opacity: 1;
-					transform: translateY(-40px);
-				}
-				&:hover + .currentBubbleTime {
-					opacity: 1;
-				}
-				&:hover {
-					background-color: rgb(126, 65, 134);
-				}
+					.currentBubbleTime {
+						position: absolute;
+						font-size: 0.3rem;
+						bottom: 0;
+						opacity: 0;
+						transition: 0.2s;
+					}
 
-				.hourBubbleText {
-					opacity: 0;
-					font-size: 0.5rem;
-					transition: 0.4s;
+					.hourBubble {
+						background-color: rgb(173, 116, 180);
+						box-shadow: 0 2px 5px gray;
+						cursor: default;
+						width: clamp(5px, 1.5vw, 15px);
+						height: clamp(5px, 1.5vw, 15px);
+						border-radius: 50%;
+						opacity: 0;
+						animation: appear 1s forwards;
+
+						&:hover .hourBubbleText {
+							opacity: 1;
+							transform: translateY(-40px);
+						}
+						&:hover + .currentBubbleTime {
+							opacity: 1;
+						}
+						&:hover {
+							background-color: rgb(126, 65, 134);
+						}
+
+						.hourBubbleText {
+							opacity: 0;
+							font-size: 0.5rem;
+							transition: 0.4s;
+						}
+					}
 				}
 			}
 		}
+	}
+
+	.currentDate {
+		background-color: rgba(255, 255, 255, 0.719);
+		margin-top: 0.2rem;
+		font-size: clamp(15px, 3vw, 30px);
+		padding: 0.2rem;
+		border-radius: 20px;
 	}
 }
 

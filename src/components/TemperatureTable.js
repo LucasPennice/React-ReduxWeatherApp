@@ -1,36 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
 
-export default (props) => {
+export default ({ forecastData, isCelsius }) => {
 	const [whatDay, setWhatDay] = useState(0);
-	const [currentDay, setCurrentDay] = useState(
-		props.forecastData.forecastday[whatDay].hour
-	);
-	let minT = props.forecastData.forecastday[0].day.mintemp_c;
-	let maxT = props.forecastData.forecastday[0].day.maxtemp_c;
+	const { forecastday } = forecastData;
+	const { day, hour, date } = forecastday[whatDay];
+	const [currentDay, setCurrentDay] = useState(hour);
+	const [minT, setMinT] = useState(day.mintemp_c);
+	const [maxT, setMaxT] = useState(day.maxtemp_c);
+	let delay = 1;
 
 	useEffect(() => {
-		setCurrentDay(props.forecastData.forecastday[whatDay].hour);
-		minT = props.forecastData.forecastday[whatDay].day.mintemp_c;
-		maxT = props.forecastData.forecastday[whatDay].day.maxtemp_c;
-		console.log(whatDay);
+		setCurrentDay(hour);
 	}, [whatDay]);
 
 	const scaleTable = (temp) => {
-		if (maxT < 0) {
-			//If every T is negative
-			return temp + Math.abs(minT) + 65;
-		} else if (minT < 0) {
-			//If there is a negative T
+		if (maxT < 0 || minT < 0) {
 			return temp + Math.abs(minT) + 65;
 		} else {
 			const scaleCoeficient = 60 / maxT;
 			return temp * scaleCoeficient;
 		}
 	};
-	let delay = 1;
 
-	console.log(props.forecastData);
 	const changeDay = (action) => {
 		if (action === 'take') {
 			whatDay === 0 ? setWhatDay(0) : setWhatDay(whatDay - 1);
@@ -40,11 +32,11 @@ export default (props) => {
 	};
 
 	return (
-		<div className="dunno">
-			<div className="TTComponentContainer">
+		<div className="TTComponentContainer">
+			<div className="TableAndButtonsContainer">
 				<Button text="<" task="take" changeDay={changeDay} />
-				<div className="forecastDiv">
-					<div className="forecastTable">
+				<div className="TableContainer">
+					<div className="ForecastTable">
 						{currentDay.map((hour) => {
 							delay += 0.05;
 							return (
@@ -58,7 +50,7 @@ export default (props) => {
 										style={{ animationDelay: `${delay}s` }}
 									>
 										<div className="hourBubbleText">
-											{props.isCelsius === true
+											{isCelsius === true
 												? `${hour.temp_c}°`
 												: `${hour.temp_f}°F`}
 										</div>
@@ -71,9 +63,7 @@ export default (props) => {
 				</div>
 				<Button text=">" task="add" changeDay={changeDay} />
 			</div>
-			<div className="currentDate">
-				{props.forecastData.forecastday[whatDay].date.slice(-5)}
-			</div>
+			<div className="currentDate">{date.slice(-5)}</div>
 		</div>
 	);
 };

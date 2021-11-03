@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 export default ({
 	isSearchBarUp,
 	setIsSearchBarUp,
 	searchTerm,
 	setSearchTerm,
-	getWeatherInfo,
+	updateWeatherState,
 }) => {
 	return (
 		<div>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					getWeatherInfo(searchTerm);
+					updateWeatherState(searchTerm);
 				}}
 			>
 				<input

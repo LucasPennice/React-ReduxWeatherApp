@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ iconOpacity, isFormSubmitted, setBgColor }) => {
+export default ({ iconOpacity, isFormSubmitted }) => {
 	return (
 		<div style={{ opacity: `${iconOpacity}`, transition: 'opacity 2s' }}>
 			<div className="loadingIcon"></div>
