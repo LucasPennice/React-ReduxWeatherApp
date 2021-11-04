@@ -8,17 +8,19 @@ import WeatherData from '../apis/WeatherData';
 import WeatherForecast from '../apis/WeatherForecast';
 //
 import React, { useState, useEffect } from 'react';
+// REDUX IMPORTS
+import { useSelector, useDispatch } from 'react-redux';
+import { formSubmitTrue, changeBgColor } from '../actions';
 
 export default () => {
+	const dispatch = useDispatch();
 	const grayColor = 'rgb(216, 216, 216)';
 	const nightColor = 'rgb(13, 13, 43)';
 	const dayColor = 'rgb(143, 208, 229)';
-	const [isSearchBarUp, setIsSearchBarUp] = useState(false);
-	const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+	const bgColor = useSelector((state) => state.bgColor);
+	const isSearchBarUp = useSelector((state) => state.isSearchBarUp);
 	const [searchTerm, setSearchTerm] = useState('');
 	const [weatherData, setWeatherData] = useState({});
-	const [bgColor, setBgColor] = useState('rgb(216, 216, 216)');
-	const [isCelsius, setIsCelsius] = useState(true);
 	const [forecastData, setForecastData] = useState({});
 	let appStyle = { backgroundColor: bgColor, transition: `0.2s` };
 
@@ -55,9 +57,9 @@ export default () => {
 		try {
 			setForecastData({});
 			setWeatherData({});
-			setBgColor(grayColor);
+			dispatch(changeBgColor(grayColor));
 			if (cityName) {
-				setIsFormSubmitted(true);
+				dispatch(formSubmitTrue());
 				updateWeatherInfo(cityName);
 			} else {
 				alert('Please write something');
@@ -70,42 +72,30 @@ export default () => {
 	useEffect(() => {
 		if (weatherData.weatherIcon !== undefined) {
 			weatherData.weatherIcon.includes('night')
-				? setBgColor(nightColor)
-				: setBgColor(dayColor);
+				? dispatch(changeBgColor(nightColor))
+				: dispatch(changeBgColor(dayColor));
 		}
 	}, [weatherData]);
 
 	return (
 		<div className="appBody" style={appStyle}>
 			<SearchBar
-				isSearchBarUp={isSearchBarUp}
-				setIsSearchBarUp={setIsSearchBarUp}
 				searchTerm={searchTerm}
 				setSearchTerm={setSearchTerm}
 				updateWeatherState={updateWeatherState}
-				setIsFormSubmitted={setIsFormSubmitted}
 			/>
 			{Object.keys(weatherData).length === 0 ? (
-				<LoadingIcon
-					iconOpacity={isSearchBarUp === true ? 1 : 0}
-					searchTerm={searchTerm}
-					isFormSubmitted={isFormSubmitted}
-					setBgColor={setBgColor}
-				/>
+				<LoadingIcon iconOpacity={isSearchBarUp === true ? 1 : 0} />
 			) : (
 				''
 			)}
 			{Object.keys(weatherData).length !== 0 ? (
-				<WeatherInfo
-					weatherData={weatherData}
-					isCelsius={isCelsius}
-					setIsCelsius={setIsCelsius}
-				/>
+				<WeatherInfo weatherData={weatherData} />
 			) : (
 				''
 			)}
 			{Object.keys(forecastData).length !== 0 ? (
-				<TemperatureTable isCelsius={isCelsius} forecastData={forecastData} />
+				<TemperatureTable forecastData={forecastData} />
 			) : (
 				''
 			)}

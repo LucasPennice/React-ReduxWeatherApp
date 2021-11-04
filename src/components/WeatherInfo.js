@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleCelsius } from '../actions';
 
-export default ({ weatherData, isCelsius, setIsCelsius }) => {
+export default ({ weatherData }) => {
+	const dispatch = useDispatch();
+	const isCelsius = useSelector((state) => state.isCelsius);
 	const { c, f, location, weatherIcon, weather } = weatherData;
 	const [temperatureClass, setTemperatureClass] = useState(
 		'temperature appearClass'
-	);
+	); //Local State
 
 	useEffect(() => {
 		//Animates transition between temperatures
@@ -21,7 +25,7 @@ export default ({ weatherData, isCelsius, setIsCelsius }) => {
 			<div className="weatherInfoContainer">
 				<div
 					className={temperatureClass}
-					onClick={() => setIsCelsius(!isCelsius)}
+					onClick={() => dispatch(toggleCelsius())}
 				>
 					{isCelsius === true ? `${c}°` : `${f}°F`}
 					<img src={weatherIcon} className="weatherIcon" />

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Button from './Button';
 
-export default ({ forecastData, isCelsius }) => {
-	const [whatDay, setWhatDay] = useState(0);
+export default ({ forecastData }) => {
+	const isCelsius = useSelector((state) => state.isCelsius);
+	const [whatDay, setWhatDay] = useState(0); //Local State
 	const { forecastday } = forecastData;
 	const { day, hour, date } = forecastday[whatDay];
-	const [currentDay, setCurrentDay] = useState(hour);
-	const [minT, setMinT] = useState(day.mintemp_c);
-	const [maxT, setMaxT] = useState(day.maxtemp_c);
+	const [currentDay, setCurrentDay] = useState(hour); //Local State
+	const [minT, setMinT] = useState(day.mintemp_c); //Local State
+	const [maxT, setMaxT] = useState(day.maxtemp_c); //Local State
 	let delay = 1;
 
 	useEffect(() => {
