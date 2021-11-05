@@ -1,6 +1,12 @@
 const weatherDataReducer = (state = {}, action) => {
-	if (action.type === 'UPDATE_WEATHER_DATA') return (state = action.payload);
-	return state;
+	switch (action.type) {
+		case 'UPDATE_WEATHER_DATA':
+			return (state = action.payload);
+		case 'CLEAR_WEATHER_DATA':
+			return (state = {});
+		default:
+			return state;
+	}
 };
 
 export default weatherDataReducer;
