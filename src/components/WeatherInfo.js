@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCelsius } from '../actions';
 
-export default ({ weatherData }) => {
+export default () => {
 	const dispatch = useDispatch();
 	const isCelsius = useSelector((state) => state.isCelsius);
+	const weatherData = useSelector((state) => state.weatherData);
 	const { c, f, location, weatherIcon, weather } = weatherData;
 	const [temperatureClass, setTemperatureClass] = useState(
 		'temperature appearClass'
@@ -27,7 +28,7 @@ export default ({ weatherData }) => {
 					className={temperatureClass}
 					onClick={() => dispatch(toggleCelsius())}
 				>
-					{isCelsius === true ? `${c}°` : `${f}°F`}
+					{isCelsius === true ? `${c}°C` : `${f}°F`}
 					<img src={weatherIcon} className="weatherIcon" />
 				</div>
 				<div className="weatherState">{weather}</div>

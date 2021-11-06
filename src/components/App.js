@@ -3,19 +3,17 @@ import SearchBar from './SearchBar';
 import LoadingIcon from './LoadingIcon';
 import TemperatureTable from './TemperatureTable';
 import WeatherInfo from './WeatherInfo';
-//API CONFIG
-import WeatherData from '../apis/WeatherData';
-import WeatherForecast from '../apis/WeatherForecast';
 //
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 // REDUX IMPORTS
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	formSubmitTrue,
 	changeBgColor,
 	fetchWeatherData,
+	fetchForecastData,
 	clearWeatherData,
-	updateSearchTerm,
+	clearForecastData,
 } from '../actions';
 
 export default () => {
@@ -26,32 +24,18 @@ export default () => {
 	const bgColor = useSelector((state) => state.bgColor);
 	const isSearchBarUp = useSelector((state) => state.isSearchBarUp);
 	const weatherData = useSelector((state) => state.weatherData);
-	const searchTerm = useSelector((state) => state.searchTerm);
-	// const [searchTerm, setSearchTerm] = useState('');
-	const [forecastData, setForecastData] = useState({});
+	const forecastData = useSelector((state) => state.forecastData);
 	let appStyle = { backgroundColor: bgColor, transition: `0.2s` };
 
-	const updateWeatherInfo = async (cityName) => {
-		dispatch(fetchWeatherData(cityName));
-		if (cityName !== weatherData.name) updateWeatherInfo(weatherData.name);
-		const forecast = await WeatherForecast.get('', {
-			params: {
-				q: cityName,
-			},
-		});
-		setForecastData(forecast.data.forecast);
-
-		// dispatch(updateSearchTerm(weatherData.name)); //Huh
-	};
-
-	const updateWeatherState = async (cityName) => {
+	const updateWeatherState = (cityName) => {
 		try {
-			setForecastData({});
+			dispatch(clearForecastData());
 			dispatch(clearWeatherData());
 			dispatch(changeBgColor(grayColor));
 			if (cityName) {
 				dispatch(formSubmitTrue());
-				updateWeatherInfo(cityName);
+				dispatch(fetchWeatherData(cityName));
+				dispatch(fetchForecastData(cityName));
 			} else {
 				alert('Please write something');
 			}
@@ -70,26 +54,14 @@ export default () => {
 
 	return (
 		<div className="appBody" style={appStyle}>
-			<SearchBar
-				// searchTerm={searchTerm}
-				// setSearchTerm={setSearchTerm}
-				updateWeatherState={updateWeatherState}
-			/>
+			<SearchBar updateWeatherState={updateWeatherState} />
 			{Object.keys(weatherData).length === 0 ? (
 				<LoadingIcon iconOpacity={isSearchBarUp === true ? 1 : 0} />
 			) : (
 				''
 			)}
-			{Object.keys(weatherData).length !== 0 ? (
-				<WeatherInfo weatherData={weatherData} />
-			) : (
-				''
-			)}
-			{Object.keys(forecastData).length !== 0 ? (
-				<TemperatureTable forecastData={forecastData} />
-			) : (
-				''
-			)}
+			{Object.keys(weatherData).length !== 0 ? <WeatherInfo /> : ''}
+			{Object.keys(forecastData).length !== 0 ? <TemperatureTable /> : ''}
 		</div>
 	);
 };

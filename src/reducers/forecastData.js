@@ -1,6 +1,12 @@
 const forecastDataReducer = (state = {}, action) => {
-	if (action.type === 'UPDATE_FORECAST_DATA') return state;
-	return state;
+	switch (action.type) {
+		case 'UPDATE_FORECAST_DATA':
+			return (state = action.payload);
+		case 'CLEAR_FORECAST_DATA':
+			return (state = {});
+		default:
+			return state;
+	}
 };
 
 export default forecastDataReducer;
