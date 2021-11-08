@@ -12,6 +12,7 @@ export default ({ updateWeatherState }) => {
 		<div>
 			<form
 				onSubmit={(e) => {
+					e.target.blur();
 					e.preventDefault();
 					updateWeatherState(searchTerm);
 				}}
