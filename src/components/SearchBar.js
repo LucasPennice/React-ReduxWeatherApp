@@ -12,7 +12,6 @@ export default ({ updateWeatherState }) => {
 		<div>
 			<form
 				onSubmit={(e) => {
-					e.target.blur();
 					e.preventDefault();
 					updateWeatherState(searchTerm);
 				}}
@@ -23,6 +22,7 @@ export default ({ updateWeatherState }) => {
 					className={
 						isSearchBarUp === false ? 'searchBarInitial' : `searchBarActive `
 					}
+					onKeyUp={(e) => e.target.blur()}
 					onClick={() => dispatch(searchBarUpTrue())}
 					value={searchTerm}
 					onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
