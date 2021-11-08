@@ -22,7 +22,9 @@ export default ({ updateWeatherState }) => {
 					className={
 						isSearchBarUp === false ? 'searchBarInitial' : `searchBarActive `
 					}
-					onKeyUp={(e) => e.target.blur()}
+					onKeyUp={(e) => {
+						if (e.key === 'Enter') e.target.blur();
+					}}
 					onClick={() => dispatch(searchBarUpTrue())}
 					value={searchTerm}
 					onChange={(e) => dispatch(updateSearchTerm(e.target.value))}
